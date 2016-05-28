@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Curso Juegos con Phaser: Canvas</title>
+	<style media="screen">
+		body {
+			background-color: black;
+			margin: 0;
+			padding: 0;
+		}
+		canvas {
+			background-color: white;
+			margin: 30px auto;
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="lienzo" width="722" height="642"></canvas>
+	<script>
+		var elemCanvas = document.getElementById('lienzo');
+		var contexto = elemCanvas.getContext("2d");
+		var posX, posY;
+
+		var ANCHO = 200,
+				ALTO = 200;
+
+		function actualizar() {
+			posX = 300;
+			posY = 200;
+		}
+
+		function dibujar() {
+			contexto.fillStyle = "red"; // Agregamos estilos
+			contexto.fillRect(posX, posY, ANCHO, ALTO); // Dibujamos indicando coordenadas y medidas
+		}
+
+		// Primera figura
+		actualizar();
+		dibujar();
+
+	</script>
+</body>
+</html>

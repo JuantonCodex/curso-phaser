@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Curso Juegos con Phaser: Operaciones con funciones</title>
+</head>
+<body>
+	<script>
+		var	enemigo = {
+			nombre: "La inmisericorde",
+			energia: 100,
+			vidas: 3,
+			armas: ["láser","destazadora","hacha"],
+			reducirVida: function () {
+				this.vidas--;
+				this.verificarExistencia();
+			},
+			verificarExistencia: function () {
+				if (this.vidas) {
+					console.log("Aún vivo, tengo "+ this.vidas +" vidas.");
+				}
+			}
+		};
+
+		enemigo.reducirVida();
+		// console.log("Vidas: ", enemigo.vidas);
+
+
+
+	</script>
+</body>
+</html>
