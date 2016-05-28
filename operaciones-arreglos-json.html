@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Curso Juegos con Phaser: Operaciones con Arreglos de JSON</title>
+</head>
+<body>
+
+	<script>
+		
+
+		// Lista de enemigos
+		var enemigos = [
+			{
+				nombre: "La misericorde",
+				energia: 100,
+				vidas: 3,
+				armas: ["láser", "destazadora", "hacha"]
+			},
+			{
+				nombre: "Smug",
+				energia: 1000,
+				vidas: 5,
+				armas: ["fuego", "garras"]
+			},
+			{
+				nombre: "Gigante de piedra",
+				energia: 200,
+				vidas: 2,
+				armas: ["piedras"]
+			},
+			{
+				nombre: "El demoledor",
+				energia: 500,
+				vidas: 1,
+				armas: ["hacha", "sierra", "lanza"]
+			}
+		];
+		console.log("Lista de enemigos iniciales:",enemigos);
+
+		// Agregamos un enemigo
+		enemigos.push({
+			nombre: "El no nacido",
+			energia: 3000,
+			vidas: 1,
+			armas: ["kinesis", "vista"]
+		});
+		console.log("Agregamos un enemigo: ", enemigos);
+
+		// Cantidad de enemigos
+		console.log("Cantidad de enmigos", enemigos.length);
+
+		// Buscamos un enemigo para eliminarlo
+		var posicion = enemigos.indexOf({
+				nombre: "Smug",
+				energia: 1000,
+				vidas: 5,
+				armas: ["fuego", "garras"]
+			});
+		
+		enemigos.splice(posicion, 1);
+		console.log(enemigos);
+
+
+
+	</script>
+</body>
+</html>

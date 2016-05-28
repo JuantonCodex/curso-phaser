@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Curso Juegos con Phaser: Operaciones con Arreglos</title>
+</head>
+<body>
+
+	<script>
+		var niveles = ["pollito","mazo de madera","mazo de piedra","dragón plateado"];
+		console.log(niveles);
+
+		// push: para agregar niveles
+		niveles.push("dragón dorado");
+		console.log(niveles);
+
+		// pop: para retirar el último nivel
+		niveles.pop();
+		console.log(niveles);
+
+		// splice: para eliminar un elemento
+		var enemigos = [
+			"Sin eat",
+			"La inmisericorde",
+			"La purita",
+			"Lanza sangrienta"
+		];
+
+		
+		/* Primer parámetro indica a partir de que posición,
+		el segundo me indica la cantidad.
+		*/
+		enemigos.splice(1, 1);
+		console.log("Enemigos:", enemigos);
+
+		// indexOf: para obtener la posición de un enemigo (elemento del array)
+		var posicion = enemigos.indexOf("Lanza sangrienta");
+		enemigos.splice(posicion, 1);
+		console.log("Enemigos:", enemigos);
+
+
+	</script>
+</body>
+</html>
