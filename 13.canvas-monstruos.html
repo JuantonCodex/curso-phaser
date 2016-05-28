@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Curso Juegos con Phaser: Canvas</title>
+	<style media="screen">
+		body {
+			background-color: black;
+			margin: 0;
+			padding: 0;
+		}
+		canvas {
+			background-color: white;
+			margin: 30px auto;
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="lienzo" width="722" height="642"></canvas>
+	<script>
+		var elemCanvas = document.getElementById('lienzo');
+		var contexto = elemCanvas.getContext("2d");
+		var monstruo = {
+			x: 40,
+			y: 0,
+			ancho: 30,
+			alto: 30,
+			velocidadY: 5
+		};
+
+		function actualizar() {
+			var limiteInferior = monstruo.y + monstruo.alto + monstruo.velocidadY > elemCanvas.height;
+			var limiteSuperior = monstruo.y + monstruo.velocidadY < 0;
+			if (limiteSuperior || limiteInferior) {
+				monstruo.velocidadY *= -1;
+			}
+			monstruo.y = monstruo.y + monstruo.velocidadY;
+		}
+		function dibujar() {
+			contexto.clearRect(0,0, elemCanvas.width, elemCanvas.height);
+			contexto.fillStyle = "brown";
+			contexto.fillRect(monstruo.x, monstruo.y, monstruo.ancho, monstruo.alto);
+		}
+		function animar() {
+			actualizar();
+			dibujar();
+			animacion(animar);
+		}
+		var animacion = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame;
+		animacion(animar);
+
+
+
+
+
+	</script>
+</body>
+</html>
