@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Curso Juegos con Phaser: Canvas</title>
+	<style media="screen">
+		body {
+			background-color: black;
+			margin: 0;
+			padding: 0;
+		}
+		canvas {
+			background-color: white;
+			margin: 30px auto;
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="lienzo" width="600" height="600"></canvas>
+	<script>
+		var elemCanvas = document.getElementById('lienzo');
+		var contexto = elemCanvas.getContext("2d");
+		var monstruos = [
+			{
+				x: 80,
+				y: 0,
+				ancho: 40,
+				alto: 46,
+				color: "red",
+				velocidadY: 2
+			},
+			{
+				x: 220,
+				y: 0,
+				ancho: 40,
+				alto: 46,
+				color: "blue",
+				velocidadY: 4
+			},
+			{
+				x: 400,
+				y: 0,
+				ancho: 40,
+				alto: 46,
+				color: "green",
+				velocidadY: 6
+			},
+			{
+				x: 500,
+				y: 0,
+				ancho: 40,
+				alto: 46,
+				color: "orange",
+				velocidadY: 7
+			},
+			{
+				x: 650,
+				y: 0,
+				ancho: 40,
+				alto: 46,
+				color: "black",
+				velocidadY: 8
+			}
+		];
+
+		var jugadorMoviendose = false;
+		var spriteJugador, spriteMeta, spriteMonstruo, spriteFondo;
+
+
+		var finJuego = false;
+		var jugador = {
+			x: 0,
+			y: 300,
+			ancho: 40,
+			alto: 31,
+			color: "skyblue",
+			velocidadX: 5
+		};
+
+		var meta = {
+			x: 560,
+			y: 306,
+			color: "yellow",
+			ancho: 40,
+			alto: 45
+		};
+
+		function colision(elemento1, elemento2) {
+			var dx = Math.abs(elemento1.x - elemento2.x),
+					dy = Math.abs(elemento1.y - elemento2.y);
+			var colisionX = dx < Math.max(elemento1.ancho, elemento2.ancho);
+			var colisionY = dy < Math.max(elemento1.alto, elemento2.alto);
+
+			return colisionX && colisionY;
+		}
+		function actualizar() {
+			// Jugador
+			if (jugadorMoviendose) {
+				jugador.x += jugador.velocidadX;
+			}
+
+			// Monstruos
+			monstruos.forEach(function(monstruo, indice){
+				if (!finJuego) {
+					var limiteInferior = monstruo.y + monstruo.alto + monstruo.velocidadY > elemCanvas.height;
+					var limiteSuperior = monstruo.y + monstruo.velocidadY < 0;
+					if (limiteSuperior || limiteInferior) {
+						monstruo.velocidadY *= -1;
+					}
+					monstruo.y = monstruo.y + monstruo.velocidadY;
+
+					finJuego = colision(jugador, monstruo);
+				}
+
+			});
+
+			if (colision(jugador, meta)) {
+				finJuego = true;
+				alert("Ganaste");
+			}
+
+		}
+
+		function dibujar() {
+			contexto.clearRect(0,0, elemCanvas.width, elemCanvas.height);
+
+			// Fondo
+			contexto.drawImage(spriteFondo, 0 , 0);
+
+			// Meta
+			contexto.drawImage(spriteMeta, meta.x, meta.y);
+
+			// Jugador
+			contexto.drawImage(spriteJugador, jugador.x, jugador.y);
+
+			// Monstruos
+			monstruos.forEach(function(monstruo, indice){
+				contexto.drawImage(spriteMonstruo, monstruo.x, monstruo.y);
+			});
+
+
+
+		}
+		function cargarImagenes() {
+			spriteJugador = new Image();
+			spriteJugador.src = "img/pollito.png";
+
+			spriteMonstruo = new Image();
+			spriteMonstruo.src = "img/nave.png";
+
+			spriteMeta = new Image();
+			spriteMeta.src = "img/gusano.png";
+
+			spriteFondo = new Image();
+			spriteFondo.src = "img/fondo.jpg";
+		}
+		cargarImagenes();
+
+
+		function animar() {
+			actualizar();
+			dibujar();
+
+			if (!finJuego) {
+				animacion(animar);
+			}
+
+		}
+
+		elemCanvas.addEventListener("mousedown", function(){
+			jugadorMoviendose = true;
+		});
+		elemCanvas.addEventListener("mouseup", function(){
+			jugadorMoviendose = false;
+		});
+
+		var animacion = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame;
+		animacion(animar);
+
+
+	</script>
+</body>
+</html>
