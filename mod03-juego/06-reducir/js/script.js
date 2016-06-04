@@ -71,7 +71,7 @@ var JuegoEstado = {
 		/**
 		 * Cada 4 segundos se va llamar al mètodo "reducir"
 		 */
-		this.game.time.events.loop(Phaser.Timer.SECOND * 1, this.reducir, this);
+		this.timerSalud = this.game.time.events.loop(Phaser.Timer.SECOND * 1, this.reducir, this);
 	},
 	rotacion: function(sprite, evento){
 		if(this.itemSeleccionado || this.mascotaMoviendose) return;
@@ -131,6 +131,7 @@ var JuegoEstado = {
 		var salud = this.mascota.customParams.salud;
 		if (diversion <= 0 || salud <= 0) {
 			this.mascota.frame = 4;
+			game.time.events.remove(this.timerSalud);
 			console.log("mascota se murio");
 		}
 	},
