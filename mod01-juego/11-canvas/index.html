@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf8">
+		<style>
+			body {
+				background-color: black;
+				margin:0;
+				padding:0;
+			}
+
+			canvas{
+				background-color: white;
+				margin:30px auto;
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<canvas id="lienzo" width="722" height="642">
+		</canvas>
+
+		<script>
+			var elemCanvas = document.getElementById("lienzo");
+			var contexto = elemCanvas.getContext("2d");
+
+			var posicionX, posicionY;
+
+			var ANCHO = 200,
+				ALTO = 200;
+
+			function actualizar(){
+				posicionX = 300;
+				posicionY = 200;
+			}
+
+			function dibujar(){
+				contexto.fillStyle = "red";
+				contexto.fillRect(posicionX, posicionY, ANCHO, ALTO);
+			}
+
+			actualizar();
+			dibujar();
+
+	
+		</script>
+	</body>
+</html>

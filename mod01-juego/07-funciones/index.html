@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf8">
+	</head>
+	<body>
+		<script>
+			function estadisticas(enemigo){
+				console.log("===================");
+				console.log("Nombre", enemigo.nombre);
+				console.log("Energía", enemigo.energia);
+				console.log("Vidas", enemigo.vidas);
+			}
+
+
+			var enemigos = [
+				{
+					nombre: "La Inmisericorde",
+					energia: 100,
+					vidas: 3,
+					armas: ["láser", "destazadora", "hacha"]
+				},
+				{
+					nombre: "Smug",
+					energia: 1000,
+					vidas: 5,
+					armas: ["fuego", "garras"]
+				},
+				{
+					nombre: "Gigante de piedra",
+					energia: 200,
+					vidas: 2,
+					armas: ["piedras"]
+				},
+				{
+					nombre: "El demoledor",
+					energia: 500,
+					vidas: 1,
+					armas: ["hacha", "sierra", "lanza"]
+				}
+			];
+
+			estadisticas(enemigos[3]);
+			estadisticas(enemigos[2]);
+
+
+
+
+
+
+
+
+
+
+
+		</script>
+	</body>
+</html>

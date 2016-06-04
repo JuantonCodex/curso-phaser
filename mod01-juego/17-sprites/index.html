@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf8">
+		<style>
+			body {
+				background-color: black;
+				margin:0;
+				padding:0;
+			}
+
+			canvas{
+				background-color: white;
+				margin:30px auto;
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<canvas id="lienzo" width="722" height="642">
+		</canvas>
+
+		<script>
+			var elemCanvas = document.getElementById("lienzo");
+			var contexto = elemCanvas.getContext("2d");
+
+			var jugadorMoviendose = false;
+
+			var finJuego = false;
+
+			var spriteJugador, spriteMounstro, spriteMeta, spriteFondo;
+
+			var mounstros = [
+				{
+					x: 140,
+					y: 0,
+					ancho: 46,
+					altura: 40,
+					velocidadY: 2
+				},
+				{
+					x: 240,
+					y: 0,
+					ancho: 46,
+					altura: 40,
+					velocidadY: 4
+				},
+				{
+					x: 340,
+					y: 0,
+					ancho: 46,
+					altura: 40,
+					velocidadY: 5
+				},
+				{
+					x: 440,
+					y: 0,
+					ancho: 46,
+					altura: 40,
+					velocidadY: 6
+				},
+				{
+					x: 560,
+					y: 0,
+					ancho: 46,
+					altura: 40,
+					velocidadY: 3
+				},
+				{
+					x: 660,
+					y: 0,
+					ancho: 46,
+					altura: 40,
+					velocidadY: 2
+				}
+			];
+
+			var jugador = {
+				x: 0,
+				y: 306,
+				ancho: 40,
+				altura: 31,
+				velocidadX: 5
+			};
+
+			var meta = {
+				x: 692,
+				y: 306,
+				ancho: 40,
+				altura: 45
+			};
+
+			function colision(elemento1, elemento2) {
+				var dx = Math.abs(elemento1.x - elemento2.x),
+					dy = Math.abs(elemento1.y - elemento2.y);
+
+				var colisionX = dx < Math.max(elemento1.ancho, elemento2.ancho);
+				var colisionY = dy < Math.max(elemento1.altura, elemento2.altura);
+
+				return colisionX && colisionY;
+			}
+
+			function actualizar(){
+				if(jugadorMoviendose){
+					jugador.x += jugador.velocidadX;
+				}
+
+				mounstros.forEach(function(mounstro, indice) {
+					if(!finJuego) {
+						var limiteInferior = (mounstro.y + mounstro.altura + mounstro.velocidadY) > elemCanvas.height;
+
+						var limiteSuperior = (mounstro.y + mounstro.velocidadY) < 0;
+
+						if(limiteInferior || limiteSuperior) {
+							mounstro.velocidadY *= -1;
+						}
+
+						mounstro.y += mounstro.velocidadY;
+
+						finJuego = colision(jugador, mounstro);
+						console.log("=====");
+						console.log(jugador);
+						console.log(mounstro);
+					}
+				});
+
+				if(colision(jugador, meta)) {
+					finJuego = true;
+					alert("¡Ganaste!");
+				}
+			}
+
+			function dibujar(){
+				contexto.clearRect(0, 0, elemCanvas.width, elemCanvas.height);
+
+				contexto.drawImage(spriteFondo, 0, 0);
+
+				contexto.drawImage(spriteMeta, meta.x, meta.y);
+
+				contexto.drawImage(spriteJugador, jugador.x, jugador.y);
+
+				mounstros.forEach(function(mounstro, indice){
+					contexto.drawImage(spriteMounstro, mounstro.x, mounstro.y);
+				})
+			}
+
+			function cargarImagenes(){
+				spriteJugador = new Image();
+				spriteJugador.src = "img/pollito.png";
+
+				spriteMounstro = new Image();
+				spriteMounstro.src = "img/nave.png";
+
+				spriteMeta = new Image();
+				spriteMeta.src = "img/gusano.png";
+
+				spriteFondo = new Image();
+				spriteFondo.src = "img/fondo.jpg";
+			}
+
+			function animar(){
+				actualizar();
+				dibujar();
+
+				if(!finJuego) {
+					animacion(animar);
+				}
+			}
+
+			elemCanvas.addEventListener("mousedown", function(){
+				jugadorMoviendose = true;
+			});
+
+			elemCanvas.addEventListener("mouseup", function(){
+				jugadorMoviendose = false;
+			});
+
+			cargarImagenes();
+
+			var animacion = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || window.webkitRequestAnimationFrame;
+
+			animacion(animar);
+
+
+		</script>
+	</body>
+</html>

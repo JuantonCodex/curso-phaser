@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf8">
+	</head>
+	<body>
+		<script>
+
+			var enemigo = 
+				{
+					nombre: "La Inmisericorde",
+					energia: 100,
+					vidas: 3,
+					armas: ["láser", "destazadora", "hacha"],
+					reducirVida: function(){
+						this.vidas--;
+						this.verificarExistencia();
+					},
+					verificarExistencia: function(){
+						if(this.vidas) {
+							console.log("Aún vivo");
+						}
+					}
+				};
+
+			console.log("Vidas", enemigo.vidas);
+
+			enemigo.reducirVida();
+
+			console.log("Vidas reducidas", enemigo.vidas);
+
+
+
+
+
+		</script>
+	</body>
+</html>
